@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>jira</artifactId>
+    <artifactId>airbnb</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>jira</name>
     <description>jira</description>

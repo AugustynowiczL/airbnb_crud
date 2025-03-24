@@ -4,6 +4,8 @@ import com.example.jira.springbootapi.entity.User;
 import com.example.jira.springbootapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public class UserController {
 
     @PostMapping("/user")
     public ResponseEntity<User> saveUser(@RequestBody User user) {
+        System.out.println("Trying to create user");
         User newUser = userService.saveUser(user);
         return ResponseEntity.ok(newUser);
     }
@@ -38,15 +41,17 @@ public class UserController {
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/users/{username}")
-    public ResponseEntity<User> updateUser(@PathVariable String username, @RequestBody User user) {
-        User updatedUser = userService.updateUser(username, user);
-        return ResponseEntity.ok(updatedUser);
-    }
-
-    @DeleteMapping("/users/{username}")
-    public ResponseEntity<String> deleteUser(@PathVariable String username) {
-        userService.deleteUser(username);
-        return ResponseEntity.ok("User deleted");
+    @PutMapping("/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        String contextUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (contextUsername.equals(user.getId())) {
+            //ensure user only changes his own profile
+            User updatedUser = userService.updateUser(user.getId(), user);
+            return ResponseEntity.ok(updatedUser);
+        } else
+        {
+            System.out.println("Username not matched");
+            return ResponseEntity.status(403).build();
+        }
     }
 }

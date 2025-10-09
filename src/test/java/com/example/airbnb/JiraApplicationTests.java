@@ -8,6 +8,7 @@ class JiraApplicationTests {
 
     @Test
     void contextLoads() {
+        //No unit tests needed
     }
 
 }

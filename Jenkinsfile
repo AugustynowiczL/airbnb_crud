@@ -4,8 +4,7 @@ pipeline {
     environment {
         // Define environment variables here
         SONAR_TOKEN = credentials('sonar_token')
-        DOCKER_IMAGE = 'airbnb-app:latest'
-    }}
+    }
 
     stages {
         stage('Checkout') {
@@ -29,7 +28,7 @@ pipeline {
         }
         stage('Docker Build & Push') {
             steps {
-                sh 'docker build -t airbnb-app:latest .'
+                sh 'docker build -t airbnb-app:develop .'
             }
         }
     }

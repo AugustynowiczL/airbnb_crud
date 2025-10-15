@@ -22,7 +22,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQubeServer') {
-                    bat 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN'
+                    bat 'mvn sonar:sonar -Dsonar.token=$SONAR_TOKEN'
                 }
             }
         }

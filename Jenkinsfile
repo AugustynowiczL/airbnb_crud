@@ -25,12 +25,12 @@ pipeline {
                     script {
                         def branchName = env.BRANCH_NAME ?: 'prod'
                         def projectKey = "airbnb-app-${branchName}"
+                        bat """mvn sonar:sonar ^
+                               -Dsonar.projectKey=${projectKey} ^
+                               -Dsonar.projectName="Airbnb (${branchName})" ^
+                               -Dsonar.token=%SONAR_TOKEN%'
+                        """
                     }
-                    bat """mvn sonar:sonar ^
-                           -Dsonar.projectKey=${projectKey} ^
-                           -Dsonar.projectName="Airbnb (${branchName})" ^
-                           -Dsonar.token=%SONAR_TOKEN%'
-                    """
                 }
             }
         }

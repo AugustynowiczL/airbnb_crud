@@ -23,7 +23,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQubeServer') {
                     script {
-                        def branchName = env.BRANCH_NAME ?: 'prod'
+                        def branchName = env.ENVIRONMENT
                         def projectKey = "airbnb-app-${branchName}"
                         bat """mvn sonar:sonar ^
                                -Dsonar.projectKey=${projectKey} ^

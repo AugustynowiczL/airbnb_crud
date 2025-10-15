@@ -16,7 +16,7 @@ pipeline {
         stage('Build & Test') {
             steps {
                 bat 'mvn clean install'
-                // Add your test steps heree
+                // Add your test steps here
             }
         }
         stage('SonarQube Analysis') {

@@ -28,7 +28,7 @@ pipeline {
                         bat """mvn sonar:sonar ^
                                -Dsonar.projectKey=${projectKey} ^
                                -Dsonar.projectName="Airbnb (${branchName})" ^
-                               -Dsonar.token=%SONAR_TOKEN%'
+                               -Dsonar.token=%SONAR_TOKEN%
                         """
                     }
                 }
